@@ -44,5 +44,4 @@ public class Dealership {
     public List<Vehicle> getVehiclesByColor(String color) { return null; }
     public List<Vehicle> getVehiclesByMileage(int min, int max) { return null; }
     public List<Vehicle> getVehiclesByType(String type) { return null; }
-
 }
