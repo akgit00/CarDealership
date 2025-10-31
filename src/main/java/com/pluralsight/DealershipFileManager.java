@@ -1,4 +1,5 @@
 package com.pluralsight;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,24 +12,17 @@ public class DealershipFileManager {
         Dealership dealership = null;
 
         try (BufferedReader br = new BufferedReader(new FileReader(FILE_PATH))) {
-            //dealership info
-            String line = br.readLine();
-            if (line == null) {
-                System.out.println("Error: The file is empty.");
-                return null;
-            }
+            String dealershipInfo = br.readLine();
+            String[] parts = dealershipInfo.split("\\|");
 
-            String[] dealershipInfo = line.split("\\|");
-            String name = dealershipInfo[0];
-            String address = dealershipInfo[1];
-            String phone = dealershipInfo[2];
-
+            String name = parts[0];
+            String address = parts[1];
+            String phone = parts[2];
             dealership = new Dealership(name, address, phone);
 
-            //vehicle info
-            String vehicleLine;
-            while ((vehicleLine = br.readLine()) != null) {
-                String[] data = vehicleLine.split("\\|");
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split("\\|");
                 int vin = Integer.parseInt(data[0]);
                 int year = Integer.parseInt(data[1]);
                 String make = data[2];
@@ -38,10 +32,9 @@ public class DealershipFileManager {
                 int odometer = Integer.parseInt(data[6]);
                 double price = Double.parseDouble(data[7]);
 
-                Vehicle vehicle = new Vehicle();
+                Vehicle vehicle = new Vehicle(vin, year, make, model, type, color, odometer, price);
                 dealership.addVehicle(vehicle);
             }
-
         } catch (IOException e) {
             System.out.println("Error reading file: " + e.getMessage());
         }
@@ -50,6 +43,17 @@ public class DealershipFileManager {
     }
 
     public void saveDealership(Dealership dealership) {
-        //will handle later
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH))) {
+            bw.write(dealership.getName() + "|" + dealership.getAddress() + "|" + dealership.getPhone());
+            bw.newLine();
+
+            for (Vehicle v : dealership.getAllVehicles()) {
+                bw.write(v.getVin() + "|" + v.getYear() + "|" + v.getMake() + "|" + v.getModel() + "|" +
+                        v.getVehicleType() + "|" + v.getColor() + "|" + v.getOdometer() + "|" + v.getPrice());
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving file: " + e.getMessage());
+        }
     }
 }

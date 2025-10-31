@@ -11,7 +11,21 @@ public class Vehicle {
     private int odometer;
     private double price;
 
-    // getters and setters
+    public Vehicle(int vin, int year, String make, String model, String vehicleType, String color, int odometer, double price) {
+        this.vin = vin;
+        this.year = year;
+        this.make = make;
+        this.model = model;
+        this.vehicleType = vehicleType;
+        this.color = color;
+        this.odometer = odometer;
+        this.price = price;
+    }
+
+    public Vehicle() {
+    }
+
+    //getters and setters
     public int getVin() { return vin; }
     public void setVin(int vin) { this.vin = vin; }
 
@@ -36,7 +50,9 @@ public class Vehicle {
     public double getPrice() { return price; }
     public void setPrice(double price) { this.price = price; }
 
+    @Override
     public String toString() {
-        return vin + " | " + year + " | " + make + " | " + model + " | " + vehicleType + " | " + color + " | " + odometer + " | $" + price;
+        return vin + " | " + year + " | " + make + " | " + model + " | " +
+                vehicleType + " | " + color + " | " + odometer + " | $" + price;
     }
 }

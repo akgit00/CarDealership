@@ -6,7 +6,7 @@ public class Dealership {
     private String name;
     private String address;
     private String phone;
-    private ArrayList<Vehicle> inventory;
+    private List<Vehicle> inventory;
 
     public Dealership(String name, String address, String phone) {
         this.name = name;
@@ -15,33 +15,82 @@ public class Dealership {
         this.inventory = new ArrayList<>();
     }
 
-    // Getters and setters
+    //getters
     public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-
     public String getAddress() { return address; }
-    public void setAddress(String address) { this.address = address; }
-
     public String getPhone() { return phone; }
-    public void setPhone(String phone) { this.phone = phone; }
 
-    public ArrayList<Vehicle> getAllVehicles() {
-        return inventory;
-    }
 
     public void addVehicle(Vehicle vehicle) {
         inventory.add(vehicle);
     }
 
     public void removeVehicle(Vehicle vehicle) {
-        //for later
+        inventory.remove(vehicle);
     }
 
-    //these will return null for now
-    public List<Vehicle> getVehiclesByPrice(double min, double max) { return null; }
-    public List<Vehicle> getVehiclesByMakeModel(String make, String model) { return null; }
-    public List<Vehicle> getVehiclesByYear(int min, int max) { return null; }
-    public List<Vehicle> getVehiclesByColor(String color) { return null; }
-    public List<Vehicle> getVehiclesByMileage(int min, int max) { return null; }
-    public List<Vehicle> getVehiclesByType(String type) { return null; }
+    public List<Vehicle> getAllVehicles() {
+        return inventory;
+    }
+
+    //custom search methods
+    public List<Vehicle> getVehiclesByPrice(double minPrice, double maxPrice) {
+        List<Vehicle> matches = new ArrayList<>();
+        for (Vehicle v : inventory) {
+            if (v.getPrice() >= minPrice && v.getPrice() <= maxPrice) {
+                matches.add(v);
+            }
+        }
+        return matches;
+    }
+
+    public List<Vehicle> getVehiclesByMakeModel(String make, String model) {
+        List<Vehicle> matches = new ArrayList<>();
+        for (Vehicle v : inventory) {
+            if (v.getMake().equalsIgnoreCase(make) && v.getModel().equalsIgnoreCase(model)) {
+                matches.add(v);
+            }
+        }
+        return matches;
+    }
+
+    public List<Vehicle> getVehiclesByYear(int minYear, int maxYear) {
+        List<Vehicle> matches = new ArrayList<>();
+        for (Vehicle v : inventory) {
+            if (v.getYear() >= minYear && v.getYear() <= maxYear) {
+                matches.add(v);
+            }
+        }
+        return matches;
+    }
+
+    public List<Vehicle> getVehiclesByColor(String color) {
+        List<Vehicle> matches = new ArrayList<>();
+        for (Vehicle v : inventory) {
+            if (v.getColor().equalsIgnoreCase(color)) {
+                matches.add(v);
+            }
+        }
+        return matches;
+    }
+
+    public List<Vehicle> getVehiclesByMileage(int minMileage, int maxMileage) {
+        List<Vehicle> matches = new ArrayList<>();
+        for (Vehicle v : inventory) {
+            if (v.getOdometer() >= minMileage && v.getOdometer() <= maxMileage) {
+                matches.add(v);
+            }
+        }
+        return matches;
+    }
+
+    public List<Vehicle> getVehiclesByType(String type) {
+        List<Vehicle> matches = new ArrayList<>();
+        for (Vehicle v : inventory) {
+            if (v.getVehicleType().equalsIgnoreCase(type)) {
+                matches.add(v);
+            }
+        }
+        return matches;
+    }
 }
