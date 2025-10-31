@@ -2,10 +2,10 @@ package com.pluralsight;
 
 public class SalesContract extends Contract {
 
-    private double salesTaxAmount;      // 5%
-    private double recordingFee = 100;  // Always $100
-    private double processingFee;       // 295 or 495
-    private boolean finance;            // true/false
+    private double salesTaxAmount;
+    private double recordingFee = 100;
+    private double processingFee;
+    private boolean finance;
 
     public SalesContract(String date, String customerName, String customerEmail, Vehicle vehicleSold, boolean finance) {
         super(date, customerName, customerEmail, vehicleSold);
